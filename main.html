@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiscoverLaunch - Where Innovation Meets Community</title>
+    <meta name="description" content="Discover the best new products through personalized recommendations, community engagement, and authentic reviews.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* SOLUTION: Modern CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* SOLUTION: Consistent design system with semantic colors */
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --border-radius: 12px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        /* SOLUTION: Improved Navigation with Clear Hierarchy */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* SOLUTION: Main Content Area with Proper Spacing */
+        .main-content {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* SOLUTION: Personalized Hero Section - Addresses Generic Welcome */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%236366f1" opacity="0.1"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* SOLUTION: Personalization Onboarding */
+        .personalization-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            max-width: 600px;
+            border: 1px solid var(--border-color);
+        }
+
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .interest-tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .interest-tag.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .interest-tag:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* SOLUTION: Enhanced Product Discovery with Multiple Views */
+        .discovery-section {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .view-toggles {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.25rem;
+            border-radius: var(--border-radius);
+        }
+
+        .view-toggle {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-toggle.active {
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* SOLUTION: Improved Product Cards with Rich Information */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .product-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-info {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .product-details h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .product-tagline {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .product-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .badge.new {
+            background: var(--success-color);
+        }
+
+        .badge.trending {
+            background: var(--secondary-color);
+        }
+
+        .badge.featured {
+            background: var(--primary-color);
+        }
+
+        /* SOLUTION: Multiple Rating Systems */
+        .product-metrics {
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-actions {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* SOLUTION: Gamified Interaction Elements */
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .upvote-btn {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .upvote-btn:hover, .upvote-btn.active {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .bookmark-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .bookmark-btn:hover, .bookmark-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* SOLUTION: Enhanced Categories with Visual Organization */
+        .categories-section {
+            background: var(--bg-secondary);
+            padding: 3rem 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .category-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* SOLUTION: Community Features */
+        .community-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .discussion-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .discussion-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .discussion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .leaderboard {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            width: 30px;
+        }
+
+        /* SOLUTION: Awards and Recognition System */
+        .awards-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto 0;
+        }
+
+        .award-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .award-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .award-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* SOLUTION: Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* SOLUTION: Loading States and Micro-interactions */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* SOLUTION: Accessibility Improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        button:focus, a:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* SOLUTION: Enhanced Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <!-- SOLUTION: Clean, Modern Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#" class="logo" aria-label="DiscoverLaunch Home">
+            <i class="fas fa-rocket"></i>
+            DiscoverLaunch
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#discover">Discover</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#submit">Submit Product</a></li>
+        </ul>
+        
+        <div class="nav-actions">
+            <a href="#login" class="btn btn-secondary">Login</a>
+            <a href="#signup" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- SOLUTION: Personalized Hero Section -->
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 id="hero-title" class="hero-title">Discover Products That Matter to You</h1>
+                <p class="hero-subtitle">Get personalized recommendations based on your interests, backed by authentic community reviews and expert insights.</p>
+                
+                <!-- SOLUTION: AI-Powered Personalization -->
+                <div class="personalization-card fade-in">
+                    <h3>What interests you most?</h3>
+                    <p>Help us personalize your discovery experience</p>
+                    <div class="interest-tags" id="interestTags">
+                        <span class="interest-tag" data-category="ai-ml">AI & Machine Learning</span>
+                        <span class="interest-tag" data-category="productivity">Productivity</span>
+                        <span class="interest-tag" data-category="design">Design Tools</span>
+                        <span class="interest-tag" data-category="developer">Developer Tools</span>
+                        <span class="interest-tag" data-category="marketing">Marketing</span>
+                        <span class="interest-tag" data-category="fintech">Fintech</span>
+                        <span class="interest-tag" data-category="health">Health & Fitness</span>
+                        <span class="interest-tag" data-category="education">Education</span>
+                        <span class="interest-tag" data-category="ecommerce">E-commerce</span>
+                        <span class="interest-tag" data-category="gaming">Gaming</span>
+                    </div>
+                    <button class="btn btn-primary" id="savePreferences" style="margin-top: 1.5rem;">
+                        <i class="fas fa-magic"></i>
+                        Personalize My Feed
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION: Enhanced Product Discovery -->
+        <section id="discover" class="discovery-section" aria-labelledby="discovery-title">
+            <div class="section-header">
+                <h2 id="discovery-title" class="section-title">Curated for You</h2>
+                <div class="view-toggles" role="tablist">
+                    <button class="view-toggle active" role="tab" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-toggle" role="tab" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-toggle" role="tab" data-view="cards">
+                        <i class="fas fa-id-card"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- SOLUTION: Rich Product Cards with Multiple Metrics -->
+                <article class="product-card fade-in" data-category="ai-ml">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-logo">🤖</div>
+                            <div class="product-details">
+                                <h3>AI Writer Pro</h3>
+                                <p class="product-tagline">Transform your writing with advanced AI that understands context and creates compelling content.</p>
+                                <div class="product-badges">
+                                    <span class="badge featured">Featured</span>
+                                    <span class="badge new">New</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-metrics">
+                        <div class="metric">
+                            <span class="metric-value">4.8</span>
+                            <span class="metric-label">User Rating</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">156</span>
+                            <span class="metric-label">Reviews</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">9.2</span>
+                            <span class="metric-label">Expert Score</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn upvote-btn" data-upvotes="234">
+                            <i class="fas fa-arrow-up"></i>
+                            234 Upvotes
+                        </button>
+                        <button class="action-btn bookmark-btn">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="product-card fade-in" data-category="productivity">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-logo">⚡</div>
+                            <div class="product-details">
+                                <h3>TaskFlow Master</h3>
+                                <p class="product-tagline">Revolutionary task management that adapts to your workflow and boosts team productivity by 40%.</p>
+                                <div class="product-badges">
+                                    <span class="badge trending">Trending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-metrics">
+                        <div class="metric">
+                            <span class="metric-value">4.6</span>
+                            <span class="metric-label">User Rating</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">89</span>
+                            <span class="metric-label">Reviews</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">8.7</span>
+                            <span class="metric-label">Expert Score</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn upvote-btn" data-upvotes="187">
+                            <i class="fas fa-arrow-up"></i>
+                            187 Upvotes
+                        </button>
+                        <button class="action-btn bookmark-btn">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="product-card fade-in" data-category="design">
+                    <div class="product-header">
+                        <div class="product-info">
+                            <div class="product-logo">🎨</div>
+                            <div class="product-details">
+                                <h3>DesignSync Studio</h3>
+                                <p class="product-tagline">Collaborative design platform that bridges the gap between designers and developers seamlessly.</p>
+                                <div class="product-badges">
+                                    <span class="badge">Rising Star</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-metrics">
+                        <div class="metric">
+                            <span class="metric-value">4.9</span>
+                            <span class="metric-label">User Rating</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">203</span>
+                            <span class="metric-label">Reviews</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">9.5</span>
+                            <span class="metric-label">Expert Score</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn upvote-btn" data-upvotes="312">
+                            <i class="fas fa-arrow-up"></i>
+                            312 Upvotes
+                        </button>
+                        <button class="action-btn bookmark-btn">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="product-card fade-in"
